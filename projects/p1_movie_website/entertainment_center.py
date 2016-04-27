@@ -10,8 +10,8 @@ Function employs the movie class from media.py to create a movie trailer website
 
 Move Parameters:
 - Title
-- Description
 - Release Year
+- Storyline
 - Movie poster image
 - Trailer
 - Genre
