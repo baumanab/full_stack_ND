@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 Created on Wed April 25 00:20:45 2016
 
@@ -32,6 +34,25 @@ the_princess_bride = movie.Movie("The Princess Bride",
                                  "https://www.youtube.com/watch?v=VYgcrny2hRs")
 
 # list to feed to movie web page generator
-movies = [full_metal_jacket, princess_bride, blast_from_past, zombieland, idiocracy]
+movies = [
+  full_metal_jacket, 
+  princess_bride, 
+  blast_from_past, 
+  zombieland, 
+  idiocracy
+  ]
 
-fresh_tomatoes.open_movies_page(movies)
+
+def main():
+  
+  """
+  Function creates a new HTML file populated with movie data, 
+  and opens it in a new browser page.
+  
+  """
+  fresh_tomatoes.open_movies_page(movies)
+  
+# Execute if run as primary
+
+if__name__ == "__main__":
+  main()
