@@ -54,10 +54,28 @@ idiocracy = media.Movie("Idiocracy",
                                  "(2006)",
                                  "Boy meets girl, boy and girl left in cryo stasis, boy and girl in idiotic future world",
                                  "http://ia.media-imdb.com/images/M/MV5BMTk4NDYyNTU3Nl5BMl5BanBnXkFtZTcwNjE4NTQ0MQ@@._V1._CR11,6,327,487_UX182_CR0,0,182,268_AL_.jpg",
-                                 "http://www.imdb.com/video/imdb/vi1622016281?ref_=tt_ov_vi",
+                                 "https://www.youtube.com/watch?v=BBvIweCIgwk",
                                  "[Adventure, Comedy, Sci-Fi, Thriller]",
                                  "74% Fresh",
                                  "Hilarious and sadly relatable")
+								 
+zombieland = media.Movie("Zombie Land",
+                                 "(2009)",
+                                 "Boys meets girls, and Bill Murray, during the Zombie apocolypse",
+                                 "http://ia.media-imdb.com/images/M/MV5BMTU5MDg0NTQ1N15BMl5BanBnXkFtZTcwMjA4Mjg3Mg@@._V1_UY268_CR5,0,182,268_AL_.jpg",
+                                 "https://www.youtube.com/watch?v=8m9EVP8X7N8",
+                                 "[	Horror, Comedy]",
+                                 "89% Fresh",
+                                 "Zombieliscious")
+						
+goonies = media.Movie("Gooonies",
+                                 "(1985)",
+                                 "If you don't know, you better ask somebody",
+                                 "https://resizing.flixster.com/Y1f-sWrYmumiRc2UtaY4QtQl-EM=/180x270/v1.bTsxMTE2NjczMDtqOzE3MDI5OzIwNDg7ODAwOzEyMDA",
+                                 "www.youtube.com/watch?v=5qA2s_Vh0uE",
+                                 "[	Horror, Comedy]",
+                                 "69% Fresh",
+                                 "Never say die")
 
 
 # list to feed to movie web page generator
@@ -65,7 +83,9 @@ movies = [
   full_metal_jacket, 
   the_princess_bride, 
   blast_from_past,
-  idiocracy]
+  idiocracy,
+  zombieland,
+  goonies]
 
 
 def main():
