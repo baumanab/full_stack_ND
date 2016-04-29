@@ -32,7 +32,7 @@ full_metal_jacket = media.Movie("Full Metal Jacket",
                                 "Compelling")
 
 
-the_princess_bride = movie.Movie("The Princess Bride",
+the_princess_bride = media.Movie("The Princess Bride",
                                  "(1987)",
                                  "Boy from boy meets world meets book about boy meets girl",
                                  "http://ia.media-imdb.com/images/M/MV5BMTkzMDgyNjQwM15BMl5BanBnXkFtZTgwNTg2Mjc1MDE@._V1_SY317_CR0,0,214,317_AL_.jpg",
@@ -41,7 +41,7 @@ the_princess_bride = movie.Movie("The Princess Bride",
                                  "97% Fresh",
                                  "As you wish")
 
-blast_from_past = movie.Movie("Blast From The Past",
+blast_from_past = media.Movie("Blast From The Past",
                                  "(1999)",
                                  "Girl meets boy from bomb shelter ",
                                  "https://www.movieposter.com/posters/archive/main/97/MPW-48881",
@@ -50,14 +50,22 @@ blast_from_past = movie.Movie("Blast From The Past",
                                  "58% Fresh",
                                  "Enjoyable")
 
+idiocracy = media.Movie("Idiocracy",
+                                 "(2006)",
+                                 "Boy meets girl, boy and girl left in cryo stasis, boy and girl in idiotic future world",
+                                 "http://ia.media-imdb.com/images/M/MV5BMTk4NDYyNTU3Nl5BMl5BanBnXkFtZTcwNjE4NTQ0MQ@@._V1._CR11,6,327,487_UX182_CR0,0,182,268_AL_.jpg",
+                                 "http://www.imdb.com/video/imdb/vi1622016281?ref_=tt_ov_vi",
+                                 "[Adventure, Comedy, Sci-Fi, Thriller]",
+                                 "74% Fresh",
+                                 "Hilarious and sadly relatable")
+
+
 # list to feed to movie web page generator
 movies = [
   full_metal_jacket, 
-  princess_bride, 
-  blast_from_past, 
-  zombieland, 
-  idiocracy
-  ]
+  the_princess_bride, 
+  blast_from_past,
+  idiocracy]
 
 
 def main():
@@ -71,5 +79,5 @@ def main():
   
 # Execute if run as primary
 
-if__name__ == "__main__":
-  main()
+if __name__ == "__main__":
+    main()
