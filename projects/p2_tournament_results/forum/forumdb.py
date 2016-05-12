@@ -15,7 +15,7 @@ c = DB.cursor()
 def GetAllPosts():
     '''Get all the posts from the database, sorted with the newest first.
     '''
-    query = "SELECT time, content From posts ORDER BY time DESC"
+    query = "SELECT time, content FROM posts ORDER BY time DESC"
     c.execute(query)
     fetched = c.fetchall()
     posts = ({'content': str(row[1]), 'time': str(row[0])} 
@@ -31,7 +31,7 @@ def AddPost(content):
     Args:
       content: The text content of the new post.
     '''
-    query = "INSERT INTO posts (content) VALUES {})".format(content)
+    query = "INSERT INTO posts (content) VALUES ({}))".format(content)
     c.execute(query)
     DB.commit()
     DB.close()
