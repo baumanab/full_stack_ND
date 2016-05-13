@@ -31,7 +31,7 @@ def AddPost(content):
     Args:
       content: The text content of the new post.
     '''
-    query = "INSERT INTO posts (content) VALUES ({}))".format(content)
+    query = "INSERT INTO posts (content) VALUES ('{}'))".format(content)
     c.execute(query)
     DB.commit()
     DB.close()
