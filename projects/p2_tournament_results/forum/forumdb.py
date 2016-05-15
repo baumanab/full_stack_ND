@@ -3,6 +3,7 @@
 # 
 
 import psycopg2
+import bleach
 
 
 def GetAllPosts():
@@ -36,7 +37,8 @@ def AddPost(content):
 
     DB = psycopg2.connect("dbname=forum")
     c = DB.cursor()
+    clean_content = bleach.clean(content)
     query = "INSERT INTO posts (content) VALUES (%s)"
-    c.execute(query, (content,))
+    c.execute(query, (clean_content,))
     DB.commit()
     DB.close()
