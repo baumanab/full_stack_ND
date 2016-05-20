@@ -4,23 +4,73 @@
 #
 
 import psycopg2
+from functools import wraps
 
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
+	
+# a wrapper generator
+def decorator(f):
+    @wraps(f)
+    def wrapper(*args, **kwds):
+        return f(*args, **kwds)
+    return wrapper
+	
+# decorator function for select queries
+@decorator
+def select_query(func):    
+    
+    """Decorator function to wrap select queries"""
+    def wrapped_func():
+        DB = connect()
+        c = DB.cursor()
+        response = func(c)
+        DB.close()
+        return response
+    return wrapped_func
+	
+# a decorator function for transaction queries
+@decorator
+def transaction_query(func): 
+    
+    """A decorator function for transaction queries"""
+    def wrapped_func(**kwargs):
+        DB = connect()
+        c = DB.cursor()
+        func(c= c, **kwargs)
+        DB.commit()
+        DB.close()
+    return wrapped_func
 
 
-def deleteMatches():
-    """Remove all the match records from the database."""
+# transaction query to delete matches
+@transaction_query
+def deleteMatches(c= None):    
+    
+    """Remove all matches from the matches table"""
+    
+    query = "DELETE FROM matches;"
+    c.execute(query)
+	
 
-
-def deletePlayers():
+@transaction_query
+def deletePlayers(c= None):
     """Remove all the player records from the database."""
+    query = "DELETE FROM matches;"
+    c.execute(query)
 
+# a function to count players in the players table, wrapped by the select query function
+@select_query
+def countPlayers(c= None):    
+    
+    """Returns the number of players in the tournament players table"""
+    
+    query = "SELECT count(*) FROM players;"
+    c.execute(query)
+    return c.fetchone()[0]
 
-def countPlayers():
-    """Returns the number of players currently registered."""
 
 
 def registerPlayer(name):
