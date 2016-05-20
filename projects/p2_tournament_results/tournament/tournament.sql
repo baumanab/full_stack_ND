@@ -1,6 +1,3 @@
--- Create the database for the tournament project
-CREATE DATABASE tournament; 
-
 -- Table definitions for the tournament project.
 --
 
