@@ -1,3 +1,9 @@
+-- create tournament database
+CREATE DATABASE tournament;
+
+-- connect to tournament
+\c tournament
+
 -- Table definitions for the tournament project.
 --
 
