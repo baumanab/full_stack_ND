@@ -20,7 +20,22 @@ CREATE TABLE players ( name TEXT,
 -- field 3: id {integer} player_id of a player, ties to id field of players table.
 
 CREATE TABLE matches ( match_id SERIAL PRIMARY KEY,
-                       result REAL,
-					   player_id SERIAL,
-                       FOREIGN KEY (player_id) REFERENCES players(id) );
+                       winner_id INT,
+					   loser_id INT,
+					   FOREIGN KEY (winner_id) REFERENCES players(id),
+                       FOREIGN KEY (loser_id) REFERENCES players(id) );
+
+-- unnested matches view
+-- melts (unpivots) matches to create a row for each player per match
+-- assigns a value of 1 for a win and 0 for losses
+-- Columns: [match_id, result, value, player id], where results is 'win' or 'loss'
+-- This view is used in playerStandings function.
+
+CREATE VIEW match_results AS
+	SELECT match_id,
+		   unnest(array['win', 'loss']) AS result,
+		   unnest(array[1, 0]) AS result_value,
+		   unnest(array[winner_id, loser_id]) AS player_id
+	FROM matches
+	ORDER BY match_id;
 
