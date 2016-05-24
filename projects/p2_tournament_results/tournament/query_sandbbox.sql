@@ -4,6 +4,13 @@ DROP VIEW match_results;
 DROP TABLE matches;
 DROP TABLE players;
 
+\pset border 2
+\pset linestyle unicode
+\pset format wrapped
+\f ','
+\o sandbox_script_output
+
+
 
 
 -- players table: Players registered for tournament
@@ -57,19 +64,37 @@ select * from matches;
 
 -- player standings
 
+-- winners
+
 SELECT players.id, name, count(matches.winner_id) as wins
 FROM players LEFT JOIN matches
 ON players.id = matches.winner_id
 GROUP BY players.id;
+
+-- losers
 
 SELECT players.id, name, count(matches.loser_id) as losses
 FROM players LEFT JOIN matches
 ON players.id = matches.loser_id
 GROUP BY players.id;
 
+-- melt/unpivot joined players and matches tabble with unnest
+
 SELECT match_id,
+       unnest(array[winner_id, loser_id]) AS player_id,
        unnest(array['win', 'loss']) AS result,
-	   unnest(array[1, 0]) AS result_value,
-       unnest(array[winner_id, loser_id]) AS player_id
+	   unnest(array[1, 0]) AS result_value
+
 FROM matches
 ORDER BY match_id;
+
+-- select and rename columns and add player names
+
+SELECT match_results.player_id as id, players.name, SUM(match_results.result_value) AS wins, COUNT(match_results.player_id) AS matches
+FROM players JOIN match_results
+ON players.id = match_results.player_id
+GROUP BY player_id, players.name
+ORDER BY wins DESC;
+
+
+
