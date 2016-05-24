@@ -33,9 +33,9 @@ CREATE TABLE matches ( match_id SERIAL PRIMARY KEY,
 
 CREATE VIEW match_results AS
 	SELECT match_id,
+	       unnest(array[winner_id, loser_id]) AS player_id,
 		   unnest(array['win', 'loss']) AS result,
-		   unnest(array[1, 0]) AS result_value,
-		   unnest(array[winner_id, loser_id]) AS player_id
+		   unnest(array[1, 0]) AS result_value
 	FROM matches
 	ORDER BY match_id;
 
