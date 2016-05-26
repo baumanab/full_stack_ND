@@ -113,7 +113,7 @@ def reportMatch(winner, loser, c= None):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    query = "INSERT INTO matches (winner_id, loser_id) VALUES (%winner, %loser);"
+    query = "INSERT INTO matches (winner_id, loser_id) VALUES (%s, %s);"
     c.execute(query, (winner, loser,))
  
  
