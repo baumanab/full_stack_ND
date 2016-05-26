@@ -1,3 +1,9 @@
+-- clean up 
+DROP VIEW IF EXISTS match_results;
+DROP TABLE IF EXISTS matches;
+DROP TABLE IF EXISTS players;
+DROP DATABASE IF EXISTS tournament;
+
 -- create tournament database
 CREATE DATABASE tournament;
 
@@ -25,17 +31,14 @@ CREATE TABLE matches ( match_id SERIAL PRIMARY KEY,
 					   FOREIGN KEY (winner_id) REFERENCES players(id),
                        FOREIGN KEY (loser_id) REFERENCES players(id) );
 
--- unnested matches view
--- melts (unpivots) matches to create a row for each player per match
--- assigns a value of 1 for a win and 0 for losses
--- Columns: [match_id, result, value, player id], where results is 'win' or 'loss'
--- This view is used in playerStandings function.
+-- match_results view assembled from players and matches tables
+-- supports playerStandings() function
 
 CREATE VIEW match_results AS
-	SELECT match_id,
-	       unnest(array[winner_id, loser_id]) AS player_id,
-		   unnest(array['win', 'loss']) AS result,
-		   unnest(array[1, 0]) AS result_value
-	FROM matches
-	ORDER BY match_id;
+SELECT players.id, players.name,
+(SELECT count(*) FROM matches WHERE matches.winner_id = players.id) as wins,
+(SELECT count(*) FROM matches WHERE players.id in (winner_id, loser_id)) as matches
+FROM players
+GROUP BY players.id
+ORDER BY wins DESC;
 
