@@ -10,14 +10,14 @@ from functools import wraps
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
-	
+    
 # a wrapper generator
 def decorator(f):
     @wraps(f)
     def wrapper(*args, **kwds):
         return f(*args, **kwds)
     return wrapper
-	
+    
 # decorator function for select queries
 @decorator
 def select_query(func):    
@@ -30,7 +30,7 @@ def select_query(func):
         DB.close()
         return response
     return wrapped_func
-	
+    
 # a decorator function for transaction queries
 @decorator
 def transaction_query(func): 
@@ -53,7 +53,7 @@ def deleteMatches(c= None):
     
     query = "DELETE FROM matches;"
     c.execute(query)
-	
+    
 
 @transaction_query
 def deletePlayers(c= None):
@@ -82,7 +82,7 @@ def registerPlayer(name, c= None):
     Args:
       name: the player's full name (need not be unique).
     """
-	
+    
     query = "INSERT INTO players (Name) VALUES (%s);"
     c.execute(query, (name,))
 
@@ -100,11 +100,12 @@ def playerStandings(c= None):
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-	
-	
-	
+    query = "SELECT * FROM match_results;"
+    c.execute(query)
+    return c.fetchall()
+    
 
-@transaction_query	
+@transaction_query  
 def reportMatch(winner, loser, c= None):
     """Records the outcome of a single match between two players.
 
@@ -112,8 +113,8 @@ def reportMatch(winner, loser, c= None):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-	query = "INSERT INTO matches (winner_id, loser_id) VALUES (%winner, %loser);"
-	c.execute(query, (winner, loser,))
+    query = "INSERT INTO matches (winner_id, loser_id) VALUES (%winner, %loser);"
+    c.execute(query, (winner, loser,))
  
  
 def swissPairings():
